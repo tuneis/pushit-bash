@@ -1,30 +1,3 @@
-# # $1 = path to git config
-
-# while true; do
-#     read -p 'Where do you want to push to? (cp/rtag/ask/rcv): ' pushto
-
-#     if [ "$pushto" = "cp" ]
-#     then
-#         read -p 'Crop Portal. Are you sure? (y/n): ' yn
-#         if [ "$yn" = "y" ]
-#         then
-#             # push to crop portal
-#             echo 'Pushing to Crop Portal.'
-#         fi
-#     fi
-# done
-
-
-# # if [ "$1" = "hi" ]
-# # then
-# #     echo $1
-# # fi
-# # echo 'git remote set-url origin git@gitlab.niagararesearch.ca:'"$1"/"$2"
-# # echo 'git add .'
-# # echo 'git commit -m '"$3"
-# # echo 'git push -u origin '"$4" 
-
-
 # get arguments and store in strongly typed variable names
 repository_path=$1
 commit_message=$2
@@ -68,7 +41,7 @@ fi
 # cd into .git folder and access config file
 cd "$repository_path"
 
-# get current branch you are
+# get current branch you are on
 current_branch=$(git branch | grep \* | cut -d ' ' -f2-)
 
 # check if current branch is empty, means we are on empty repo
@@ -78,7 +51,7 @@ then
     current_branch="master"
 fi
 
-# get url for git repo and removing tabs, line breaks, returns, and space
+# get url for git repo from config file of the git repo and remove tabs, line breaks, returns, and spaces
 original_url=$(ls -l | grep "url" "$repository_path/.git/config" | tr -d \\t\\n\\r[:space:])
 
 # remove the first 4 character to get rid of url= so we remain with the actual url for the git repo
@@ -117,7 +90,6 @@ then
     git remote set-url origin $original_url
 
     printf "\nComplete.\n"
-    
 else
     echo "\nCancelled... Exiting script."
     exit 1
