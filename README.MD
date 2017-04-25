@@ -9,3 +9,4 @@ touch ~/.bashrc
 `
 echo "alias pushit=\"bash C:/scripts/pushit-bash/pushit.sh\"" >> ~/.bashrc
 `
+
